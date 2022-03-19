@@ -1,0 +1,21 @@
+version: "3.9"
+
+networks:
+  netres:
+
+services:
+  openresty:
+    build: ./
+    ports:
+      - "$PORT:80"
+    environment:
+      SIGNATURE: $SIGNATURE
+    volumes:
+      - ./conf.d:/usr/local/openresty/nginx/conf/conf.d/
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./commons:/usr/local/openresty/nginx/conf/commons/
+      - ./luas:/usr/local/openresty/nginx/conf/luas/
+      - ./logs:/var/openresty/logs/
+      - ./storages:/var/openresty/storages/
+    networks:
+      - netres
